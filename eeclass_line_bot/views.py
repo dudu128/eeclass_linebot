@@ -55,7 +55,7 @@ async def fetch_all_eeclass_data(account, password):
 
 def scheduling():
     line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
-    message = TextSendMessage(text='testing')
+    message = TextSendMessage(text='成功獲取課程資料')
     coro = fetch_all_eeclass_data('111525026','Dn940387!')
     asyncio.run(coro)
     print(f'啟動: 目前時間{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}')
@@ -149,7 +149,6 @@ class LineBotCallbackView(View):
                         )
                     ]
                 ))
-            handle_message(evnet)
             self.line_bot_api.reply_message(event.reply_token, button)
 
 
