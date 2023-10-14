@@ -178,9 +178,6 @@ class LineBotCallbackView(View):
             # scheduler.start()
             # seconds=5
             # minutes=1
-        # elif text == '爬蟲':
-        #     coro = fetch_all_eeclass_data('111525026','Dn940387!')
-        #     asyncio.run(coro)
         else:
             self.line_bot_api.reply_message(event.reply_token, TextSendMessage(text=text))
 
@@ -220,8 +217,11 @@ class LineBotCallbackView(View):
                 print("Removescheduling")
                 scheduler.remove_job('scheduling_job')
                 print(scheduler.get_job('scheduling_job'))
-            scheduler.pause()      
-            self.line_bot_api.reply_message(event.reply_token, TextSendMessage(text="排程更新關閉，如要開啟排程請點案開啟排程"))
+                scheduler.pause()  
+                self.line_bot_api.reply_message(event.reply_token, TextSendMessage(text="排程更新關閉，如要開啟排程請點案開啟排程"))
+            elif not (scheduler.state == 1):
+                self.line_bot_api.reply_message(event.reply_token, TextSendMessage(text="排程尚未開啟!"))
+                            
         elif postback_data == '10':
             if (scheduler.state == 2): # STATE_STOPPED
                 self.line_bot_api.reply_message(event.reply_token, TextSendMessage(text="請先開啟排程"))
